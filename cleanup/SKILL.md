@@ -1,6 +1,6 @@
 ---
 name: cleanup
-description: Clean up the repository — prune branches that are merged or whose remote is gone, clear leftover working files, then bring stale documentation up to date.
+description: Clean up the repository — prune branches that are merged or whose remote is gone, clear leftover working files, then correct any documentation the work has left misleading.
 disable-model-invocation: true
 ---
 
@@ -18,6 +18,6 @@ Clear out what the work left behind: scratch files, stray build output, one-off 
 
 ## Documentation
 
-Then read the repo's docs against what the code now does — README, `AGENTS.md` / `CLAUDE.md`, `docs/`, and any comments describing structure that has since moved. Fix what has drifted.
+Then read the repo's docs against what the code now does — README, `AGENTS.md` / `CLAUDE.md`, `docs/`, and any comments describing structure that has since moved. Fix only what would now mislead a reader — often that is nothing. Wording you would have chosen differently is not drift.
 
-Make the edits, then stop. Report what you changed and why, and ask whether to commit and push. Never commit documentation changes unasked, `main` included.
+Make any edits, then stop. Report what you changed and why — or that nothing needed changing — and ask whether to commit and push. Never commit documentation changes unasked, `main` included.
