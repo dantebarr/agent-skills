@@ -1,23 +1,15 @@
 ---
 name: cleanup
-description: Clean up the repository — prune branches that are merged or whose remote is gone, clear leftover working files, then correct any documentation the work has left misleading.
+description: After a merge — switch to the default branch, pull, and delete the local branch you left if its remote is gone.
 disable-model-invocation: true
 ---
 
 # Cleanup
 
-Run from `main`, usually right after something merged.
+Run right after a merge, from the feature branch that just landed.
 
-## Branches and files
+1. If the working tree is dirty, stop and say what is uncommitted.
+2. Note the current branch, then `git checkout <default branch>` and `git pull --prune`.
+3. If the branch you left no longer exists on the remote, delete it with `git branch -D <branch>` — squash merges make `-d` refuse. If its remote still exists, keep it.
 
-Sync first: `git checkout main`, `git pull`, `git fetch --prune`.
-
-Then delete local branches that are safe to lose — merged into `main`, or tracking a remote that is already gone. Use `git branch -d` and let it refuse; never `-D`. A branch holding commits that aren't on `main` stays, and you name it in your report.
-
-Clear out what the work left behind: scratch files, stray build output, one-off scripts. If you can't tell whether a file is deliberate, leave it and ask.
-
-## Documentation
-
-Then read the repo's docs against what the code now does — README, `AGENTS.md` / `CLAUDE.md`, `docs/`, and any comments describing structure that has since moved. Fix only what would now mislead a reader — often that is nothing. Wording you would have chosen differently is not drift.
-
-Make any edits, then stop. Report what you changed and why — or that nothing needed changing — and ask whether to commit and push. Never commit documentation changes unasked, `main` included.
+Report what was deleted or kept, in one line.
