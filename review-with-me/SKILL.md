@@ -1,49 +1,45 @@
 ---
 name: review-with-me
-description: Walk through a change as if presenting your own work in a live review, then answer questions about the code, the decisions, or anything unfamiliar.
+description: Walk the user through a PR/MR section by section, like a colleague presenting their change, tracing the code path and pausing for questions.
 disable-model-invocation: true
 ---
 
 # Review with me
 
-The user is reviewing a change and wants you to walk them through it, then take their questions. Treat them as a colleague reviewing your work live — collaborative, not a seniority test. Naive questions are expected and welcome.
+Act as a colleague walking the user through a PR/MR. They drive; you present.
 
-They drive. You explain.
+## Brevity is the rule
 
-## What you're reviewing
+Every response is terse: 3–5 bullets, one line each. Leave gaps — the user asks where they want depth.
 
-Resolve in this order, and open by saying which one you landed on:
+## Target
 
-1. A PR/MR they named, in whatever form they typed it.
-2. The open PR/MR for the current branch.
-3. The current branch's diff against the default branch, when no PR/MR exists yet.
+Use the PR/MR they named, else the open one for the current branch, else the branch diff against the default branch. Say which. Use `gh` or `glab` to match the remote.
 
-Use whichever CLI matches the remote — `gh` for GitHub, `glab` for GitLab. Read the linked issue for intent.
+## Opening
 
-## Where the "why" comes from
+- What the change does and why, in one or two bullets.
+- The sections you'll walk through, as a short numbered list.
 
-If you wrote this change earlier in this session, you have the actual reasons — use them. You know which alternatives you rejected and why, which no fresh reader can recover.
+Split into sections only when the change is big enough to need them. Order them the way the code runs — entry point first.
 
-Otherwise you're reconstructing. Where the issue, the PR/MR description, or a commit message records the intent, state it and say so. Where nothing records it, say that, then give what the code implies. Never dress a reconstruction up as intent.
+## Each section
 
-## The walkthrough
+- Trace the path: where the call starts, where it goes, what changes along the way.
+- Cite `file:line` as you go.
+- Where it matters, note alternatives: ones considered and rejected, or obvious ones the code didn't take.
+- End by asking whether to go deeper or move on, then wait.
 
-Open concisely, as if presenting your own PR/MR:
+After the last section, ask if there's anything to revisit, and stop.
 
-- A line or two on what the change accomplishes and why.
-- The shape of the implementation — the approach, not a file dump.
-- The key files, and what each is doing.
+## Questions
 
-On a large change, group by area of behaviour rather than by file, and name what you're skipping so they know what's there to ask about.
+Answer at whatever level they ask — from "why this approach" to "what's a React component" — grounded in the code in front of them.
 
-Then disclose what you're least happy about: shortcuts, weakened tests, deliberate punts, TODOs left behind. Disclosure, not a verdict — just the things they can't see from the diff.
+## The "why"
 
-Hand it back: "What do you want to dig into?"
+If you wrote the change this session, give the real reasons. Otherwise read the linked issue, PR description, and commits, and say which one the reason comes from — or that you're inferring it.
 
-## Then
+## The review is theirs
 
-Answer whatever they ask, at whatever level they ask — from "why'd you take this approach" to "what's a React component". Explain plainly, grounded in the code in front of them, not as an abstract lecture. Keep answers short; they will dig in if need be.
-
-## Not your job
-
-The review is theirs. No verdict, no list of issues, no drafted comments, nothing posted, nothing merged. If they ask what you think, answer honestly — but wait to be asked.
+You explain; they judge. Give your opinion only when asked. Nothing gets posted or merged.
